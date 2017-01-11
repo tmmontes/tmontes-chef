@@ -1,0 +1,20 @@
+#
+# Cookbook Name:: postgresql
+# Recipe:: default
+#
+# Copyright (c) 2017 The Authors, All Rights Reserved.
+package 'postgresql-server' do
+        notifies :run, 'execute[postgresql-init]'
+end
+
+# resource name = postgresql-init
+execute 'postgresql-init' do
+         command 'postgresql-setup initdb'
+         action :nothing
+end
+
+#servicename = postgresql
+service 'postgresql' do
+         action [:enable, :start]
+end
+
